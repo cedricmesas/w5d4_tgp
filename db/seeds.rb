@@ -25,6 +25,11 @@ City.destroy_all
         name: Faker::Address.city,
         zip_code: Faker::Address.zip_code
     )
+
+    tag = Tag.create!(
+        title: Faker::Lorem.sentence(word_count: 2),
+        gossip: Gossip.all.sample
+        )
 end
 
 20.times do 
@@ -33,5 +38,13 @@ end
         content: Faker::Lorem.sentence(word_count: 9),
         user: User.all.sample
     )
+end
 
 
+20.times do 
+    PrivateMessage.create!(
+        content: Faker::Lorem.sentence(word_count: 9),
+        sender: User.all.sample,
+        recipient: User.all.sample
+    )
+end
