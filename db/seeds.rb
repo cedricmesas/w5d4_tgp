@@ -10,9 +10,22 @@ require 'faker'
 
 User.destroy_all 
 City.destroy_all
+Tag.destroy_all 
+PrivateMessage.destroy_all
+Comment.destroy_all
 # Création des 10 users
 10.times do 
-    user = User.create!(
+
+    Tag.create!(
+        title: Faker::Lorem.sentence(word_count: 1),
+        )
+
+    City.create!(
+        name: Faker::Address.city,
+        zip_code: Faker::Address.zip_code
+    )
+
+    User.create!(
         first_name: Faker::Name.first_name,
         last_name: Faker::Name.last_name,
         description: Faker::Lorem.sentence(word_count: 5),
@@ -20,26 +33,22 @@ City.destroy_all
         age: Faker::Number.between(from: 18, to: 99),
         city: City.all.sample
     )
-
-    city = City.create!(
-        name: Faker::Address.city,
-        zip_code: Faker::Address.zip_code
-    )
-
-    tag = Tag.create!(
-        title: Faker::Lorem.sentence(word_count: 2),
-        gossip: Gossip.all.sample
-        )
 end
 
 20.times do 
-    gossip = Gossip.create!(
+    Gossip.create!(
         title: Faker::Lorem.sentence(word_count: 2),
         content: Faker::Lorem.sentence(word_count: 9),
-        user: User.all.sample
+        user: User.all.sample,
+        tag: Tag.all.sample 
     )
-end
 
+    Comment.create!(
+        content: Faker::Lorem.sentence(word_count: 9),
+        comment_type: Gossipe.all.sample,
+        user: User.all.sample
+        )
+end
 
 20.times do 
     PrivateMessage.create!(
@@ -48,3 +57,5 @@ end
         recipient: User.all.sample
     )
 end
+
+
